@@ -9,5 +9,5 @@
 <img src="ss/SS2.png">
 <p>Normal addition</p>
 <img src="ss/SS3.png">
-<p>Float division</p>
+<p>Float addition</p>
 <img src="ss/SS4.png">
