@@ -1,5 +1,6 @@
 <h1>Simple calculator in reactjs</h1>
-<p>Fork my repo and follow the following steps</p>
+<p>It can perform all simple mathematical operation.</p>
+<h4>Fork my repo and follow the following steps</h4>
 <p><b>npm install</b></p>
 <p><b>npm start</b></p>
 <p>Normal UI</p>
