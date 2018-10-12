@@ -1,6 +1,6 @@
 Simple calculator in reactjs
 
-npm install
-npm start
+<p>npm install</p>
+<p>npm start</p>
 
 <img src="ss/ui.png">
