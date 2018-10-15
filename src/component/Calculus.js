@@ -141,7 +141,6 @@ const dotOperation = oprationString => {
 const exponetialOperation = (oprstr, pow = 2) => {
   try {
     let _result = eval(oprstr) ** pow;
-    console.log(_result)
     if (/\./.test(_result)) {
       _result = Number(_result.toFixed(maxAllowDigit));
     }
