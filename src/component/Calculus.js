@@ -1,5 +1,6 @@
 const maxAllowDigit = 12;
 const regExp = /([0-9]+([.][0-9]*)?|[.][0-9]+)/g;
+const oprArr = ['square', '=', '√'];
 const Calculus = (obj, name) => {
   //if request for square of number
   if (typeof name === 'object') {
@@ -7,7 +8,7 @@ const Calculus = (obj, name) => {
   }
 
   //if no operation expression  exist and user try to get square ,square root and try to evaluate
-  if (!obj.operation && name == ('square' || '=' || '√')) {
+  if (!obj.operation && oprArr.indexOf(name) > -1) {
     return;
   }
 
@@ -40,11 +41,9 @@ const Calculus = (obj, name) => {
     };
   }
 
-
-  if (obj.operation && name !== ('square' || '=' || '√') && obj.operation.length > maxAllowDigit) {
+  if (obj.operation && oprArr.indexOf(name) === -1 && obj.operation.length > maxAllowDigit) {
     return;
   }
-
 
   if (!obj.operation && name == "0") {
     return {
@@ -98,8 +97,8 @@ const Calculus = (obj, name) => {
   }
 
   if (obj.operation) {
-    if (isTotalDone(obj.operation)) {
-      obj.operation = ""
+    if (obj.operation[obj.operation.length - 1] === '0' && !isNumber(obj.operation[obj.operation.length - 2])) {
+      obj.operation = obj.operation.substring(0, obj.operation.length - 1)
     }
     return {
       operation: obj.operation + name
@@ -149,4 +148,7 @@ const exponetialOperation = (oprstr, pow = 2) => {
     return "Error";
   }
 }
+
+const isNumber = num => /[0-9]/g.test(num) || num == ".";
+
 export default Calculus;
