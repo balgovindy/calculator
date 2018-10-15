@@ -1,6 +1,17 @@
-const maxAllowDigit = 15;
+const maxAllowDigit = 12;
 const regExp = /([0-9]+([.][0-9]*)?|[.][0-9]+)/g;
 const Calculus = (obj, name) => {
+  //if request for square of number
+  if (typeof name === 'object') {
+    name = 'square'
+  }
+
+  //if no operation expression  exist and user try to get square ,square root and try to evaluate
+  if (!obj.operation && name == ('square' || '=' || '√')) {
+    return;
+  }
+
+  // request for delete expression
   if (name == "del") {
     if (isTotalDone(obj.operation)) {
       return {
@@ -17,18 +28,21 @@ const Calculus = (obj, name) => {
     }
   }
 
+  // if multiply request convert into * to evaluate the expression
   if (name == "x") {
     name = "*";
   }
 
+  // if there is call of reset
   if (name == 'C') {
     return {
       operation: null
     };
   }
 
-  if (obj.operation && obj.operation.length > maxAllowDigit) {
-    return
+
+  if (obj.operation && name !== ('square' || '=' || '√') && obj.operation.length > maxAllowDigit) {
+    return;
   }
 
 
@@ -44,19 +58,28 @@ const Calculus = (obj, name) => {
 
 
 
-  if (obj.operation && name == "=") {
-    if (isTotalDone(obj.operation)) {
+  if (obj.operation) {
+    if (name === '=') {
+      if (isTotalDone(obj.operation)) {
+        return {
+          operation: null
+        }
+      }
       return {
-        operation: null
+        operation: (obj.operation + name + operation(obj.operation)).split('=').join('<br/>=')
       }
     }
-    return {
-      operation: (obj.operation + name + operation(obj.operation)).split('=').join('<br/>=')
+    if (name == 'square') {
+      return {
+        operation: (obj.operation + name + exponetialOperation(obj.operation)).split('square').join('<br/>=')
+      }
     }
-  }
 
-  if (name == "()" || name == "+/-") {
-    return;
+    if (name == '√') {
+      return {
+        operation: (obj.operation + name + exponetialOperation(obj.operation, 0.5)).split('√').join('<br/>=')
+      }
+    }
   }
 
   if (name == ".") {
@@ -113,5 +136,18 @@ const dotOperation = oprationString => {
     return;
   }
   return !eval(oprationString[oprationString.length - 1]);
+}
+
+const exponetialOperation = (oprstr, pow = 2) => {
+  try {
+    let _result = eval(oprstr) ** pow;
+    console.log(_result)
+    if (/\./.test(_result)) {
+      _result = Number(_result.toFixed(maxAllowDigit));
+    }
+    return _result;
+  } catch (error) {
+    return "Error";
+  }
 }
 export default Calculus;

@@ -1,13 +1,23 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import Button from "./Button.jsx";
+
+function superScript(str, script) {
+  return (
+    <span>
+      {str}<sup>{script}</sup>
+    </span>
+  )
+}
+
+
 var calculator = [{
   "value": [
     ["C", "/", "x", "del"],
     ["7", "8", "9", "-"],
     ["4", "5", "6", "+"],
-    ["1", "2", "3", "()"],
-    ["0", ".", "+/-", "="]
+    ["1", "2", "3", "√"],
+    ["0", ".", superScript('x', 2), "="]
   ],
   "color": [
     ["#4286f4", "#f48641", "#f48641", "#f4e841"],
