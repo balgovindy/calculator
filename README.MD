@@ -7,7 +7,7 @@
 <img src="ss/ui.png">
 <p>Normal Division</p>
 <img src="ss/SS2.png">
-<p>Normal addition</p>
+<p>float addition</p>
 <img src="ss/SS3.png">
-<p>Float addition</p>
+<p>Square of number</p>
 <img src="ss/SS4.png">
