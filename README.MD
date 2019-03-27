@@ -1,4 +1,4 @@
-<h1>Simple calculator in reactjs</h1>
+<a href ="https://balgovindy.github.io/calculator/"><h1>Simple calculator in reactjs</h1></a>
 <p>It can perform all simple mathematical operation.</p>
 <h4>Fork my repo and follow the following steps</h4>
 <hr>
