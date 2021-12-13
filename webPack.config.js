@@ -1,37 +1,45 @@
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const DIST_DIR = path.resolve(__dirname, 'dist');
 const SRC_DIR = path.resolve(__dirname, 'src');
 
-const config = {
-  entry: SRC_DIR + '/index.jsx',
-  output: {
-    path: DIST_DIR + '/component',
-    filename: 'bundle.js',
-    publicPath: '/component/'
-  },
-  module: {
-    rules: [{
-        test: /\.(js|jsx)?/,
-        include: SRC_DIR,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-2']
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader"
+module.exports = {
+    entry: SRC_DIR + '/index.js',
+    output: {
+        path: DIST_DIR,
+        filename: 'main.js',
+        publicPath: '/'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env', '@babel/preset-react']
+                    }
+                }
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.(png|jp(e*)g|svg|gif)$/,
+                use: ['file-loader'],
+            },
+            {
+                test: /\.svg$/,
+                use: ['@svgr/webpack'],
+            }
         ]
-      }
+    },
+    plugins: [
+        new HTMLWebpackPlugin({
+            template: path.resolve(__dirname, 'index.html')
+        })
     ]
-  },
-  plugins: [
-    new ExtractTextPlugin("styles.css"),
-  ]
 }
-
-module.exports = config;
